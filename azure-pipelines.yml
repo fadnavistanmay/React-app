@@ -31,6 +31,9 @@ stages:
           path: $(Build.SourcesDirectory)/node_modules
           cacheHitVar: CACHE_RESTORED
         displayName: 'Cache Npm'
+      - script: chmod +x $(Build.SourcesDirectory)/node_modules/.bin/react-scripts
+        condition: eq(variables.CACHE_RESTORED, 'true')
+        displayName: 'Change perms'
       #install nodejs modules with npm
       - powershell: |
           rm -rf $(Build.SourcesDirectory)/node_modules
