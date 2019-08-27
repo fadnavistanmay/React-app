@@ -56,10 +56,6 @@ stages:
         displayName: 'npm run build'
         workingDirectory: '$(Build.SourcesDirectory)'
         continueOnError: true 
-      - powershell: |
-          cat /home/vsts/.npm/_logs/*.log
-        condition: ne(variables.CACHE_RESTORED, 'true')
-        displayName: 'List logs'
       - task: PublishBuildArtifacts@1
         inputs:
           pathtoPublish: '$(Build.SourcesDirectory)/build'
