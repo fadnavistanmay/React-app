@@ -37,7 +37,12 @@ stages:
       - script: 'npm install'
         workingDirectory: '$(Build.SourcesDirectory)'
         displayName: 'npm install'
-        condition: ne(variables.CACHE_RESTORED, 'true')
+      - powershell: |
+          cd $(Build.SourcesDirectory)
+          cd ../
+          ls
+        displayName: 'Testing'
+        #condition: ne(variables.CACHE_RESTORED, 'true')
       #start unit tests
       #- script: 'npm test'
        # displayName: 'npm test'
