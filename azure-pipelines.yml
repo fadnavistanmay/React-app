@@ -48,6 +48,10 @@ stages:
       - script: 'npm run build'
         displayName: 'npm run build'
         workingDirectory: '$(Build.SourcesDirectory)'
+        continueOnError: true 
+      - powershell: |
+          cat /home/vsts/.npm/_logs/*.log
+        displayName: 'List logs'
       - task: PublishBuildArtifacts@1
         inputs:
           pathtoPublish: '$(Build.SourcesDirectory)/build'
