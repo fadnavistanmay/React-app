@@ -34,6 +34,10 @@ stages:
       - script: chmod +x $(Build.SourcesDirectory)/node_modules/.bin/react-scripts
         condition: eq(variables.CACHE_RESTORED, 'true')
         displayName: 'Change perms'
+      - powershell: |
+          ls -l $(Build.SourcesDirectory)/node-modules/.bin/
+        condition: eq(variables.CACHE_RESOTRED, 'true')
+        displayName: 'Checking perms'
       #install nodejs modules with npm
       - powershell: |
           rm -rf $(Build.SourcesDirectory)/node_modules
