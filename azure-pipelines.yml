@@ -15,7 +15,7 @@ stages:
   jobs:
     - job: mainbuild
       pool:
-        vmImage: 'ubuntu-16.04'
+        vmImage: 'VS-2017'
       steps:
       - task: NodeTool@0
         inputs:
