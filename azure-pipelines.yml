@@ -23,8 +23,8 @@ stages:
         displayName: 'Install Node.js'
       - task: CacheBeta@0
         inputs:
-          key: $(Build.SourcesDirectory)/package-lock.json
-          path: $(Build.SourcesDirectory)/node_modules
+          key: '$(Build.SourcesDirectory)/package-lock.json'
+          path: '$(Build.SourcesDirectory)/node_modules'
           cacheHitVar: CACHE_RESTORED
         displayName: 'Cache Npm'
       - script: chmod -R 777 $(Build.SourcesDirectory)/node_modules
