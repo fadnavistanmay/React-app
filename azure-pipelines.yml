@@ -27,7 +27,7 @@ stages:
         displayName: 'Listing Files'
       - task: CacheBeta@0
         inputs:
-          key: $(Build.SourcesDirectory)/package-lock.json
+          key: $(Build.SourcesDirectory)/package.json
           path: $(Build.SourcesDirectory)/node_modules
           cacheHitVar: CACHE_RESTORED
         displayName: 'Cache Npm'
