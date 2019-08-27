@@ -35,10 +35,11 @@ stages:
       - powershell: |
           rm -rf $(Build.SourcesDirectory)/node_modules
         displayName: 'Removing node_modules'
+        condition: ne(variables.CACHE_RESOTRED, 'true')
       - script: 'npm install'
         workingDirectory: '$(Build.SourcesDirectory)'
         displayName: 'npm install'
-        #condition: ne(variables.CACHE_RESTORED, 'true')
+        condition: ne(variables.CACHE_RESTORED, 'true')
       #start unit tests
       #- script: 'npm test'
        # displayName: 'npm test'
