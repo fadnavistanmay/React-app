@@ -39,9 +39,9 @@ stages:
         displayName: 'npm install'
         condition: ne(variables.CACHE_RESTORED, 'true')
       #start unit tests
-      - script: 'npm test'
-        displayName: 'npm test'
-        workingDirectory: '$(Build.SourcesDirectory)'
+      #- script: 'npm test'
+       # displayName: 'npm test'
+        #workingDirectory: '$(Build.SourcesDirectory)'
       #build the solution
       - script: 'npm run build'
         displayName: 'npm run build'
