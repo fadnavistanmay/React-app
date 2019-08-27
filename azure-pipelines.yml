@@ -21,7 +21,7 @@ stages:
         inputs:
           versionSpec: '10.x'
         displayName: 'Install Node.js'
-      - task: PowerShell@2
+      - powershell: |
           cd $(Build,SourcesDirectory)
           ls
         displayName: 'Listing Files'
