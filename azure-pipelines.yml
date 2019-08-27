@@ -34,6 +34,10 @@ stages:
       - script: chmod -R 777 $(Build.SourcesDirectory)/node_modules
         condition: eq(variables.CACHE_RESTORED, 'true')
       #install nodejs modules with npm
+      - powershell: |
+          cd $(Build.SourcesDirectory)
+          rm -rf node_modules
+        displayName: 'Removing node_modules'
       - script: 'npm install'
         workingDirectory: '$(Build.SourcesDirectory)'
         displayName: 'npm install'
