@@ -15,7 +15,7 @@ stages:
   jobs:
     - job: mainbuild
       pool:
-        vmImage: 'VS-2017'
+        vmImage: 'windows-latest'
       steps:
       - task: NodeTool@0
         inputs:
