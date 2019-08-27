@@ -31,7 +31,7 @@ stages:
           path: $(Build.SourcesDirectory)/node_modules
           cacheHitVar: CACHE_RESTORED
         displayName: 'Cache Npm'
-      - script: chmod +x $(Build.SourcesDirectory)/node_modules/react-scripts-ts
+      - script: chmod +x $(Build.SourcesDirectory)/node_modules/.bin/react-scripts-ts
         condition: eq(variables.CACHE_RESTORED, 'true')
         displayName: 'Change perms'
       - powershell: |
