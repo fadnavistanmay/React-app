@@ -1,0 +1,62 @@
+name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+      - master
+      - develop
+      - support/production
+
+stages:
+- stage: build
+  displayName: build
+  variables:
+    CI: true
+  jobs:
+    - job: mainbuild
+      pool:
+        vmImage: 'ubuntu-16.04'
+      steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Install Node.js'
+      - task: CacheBeta@0
+        inputs:
+          key: $(Build.SourcesDirectory)/package-lock.json
+          path: $(Build.SourcesDirectory)/node_modules
+          cacheHitVar: CACHE_RESTORED
+        displayName: 'Cache Npm'
+      - script: chmod -R 777 $(Build.SourcesDirectory)/node_modules
+        condition: eq(variables.CACHE_RESTORED, 'true')
+      #install nodejs modules with npm
+      - script: 'npm install'
+        workingDirectory: '$(Build.SourcesDirectory)'
+        displayName: 'npm install'
+        condition: ne(variables.CACHE_RESTORED, 'true')
+      #workaround for office ui fabric and unit tests
+      - task: PowerShell@2
+        inputs:
+          filePath: './scripts/pretest.ps1'
+          workingDirectory: '$(Build.SourcesDirectory)'
+      #start unit tests
+      - script: 'npm test'
+        displayName: 'npm test'
+        workingDirectory: '$(Build.SourcesDirectory)'
+      #workaround for office ui fabric and unit tests
+      - task: PowerShell@2
+        inputs:
+          filePath: './scripts/posttest.ps1'
+          workingDirectory: '$(Build.SourcesDirectory)'
+      #build the solution
+      - script: 'npm run build'
+        displayName: 'npm run build'
+        workingDirectory: '$(Build.SourcesDirectory)'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.SourcesDirectory)/build'
+          ArtifactName: drop
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.SourcesDirectory)/scripts'
+          ArtifactName: scripts
