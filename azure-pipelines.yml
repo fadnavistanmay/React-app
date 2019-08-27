@@ -50,7 +50,3 @@ stages:
         inputs:
           pathtoPublish: '$(Build.SourcesDirectory)/build'
           ArtifactName: drop
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathtoPublish: '$(Build.SourcesDirectory)/scripts'
-          ArtifactName: scripts
