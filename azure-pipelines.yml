@@ -36,7 +36,7 @@ stages:
         displayName: 'Change perms'
       - powershell: |
           ls -l $(Build.SourcesDirectory)/node-modules/.bin/
-        condition: eq(variables.CACHE_RESOTRED, 'true')
+        condition: eq(variables.CACHE_RESTORED, 'true')
         displayName: 'Checking perms'
       #install nodejs modules with npm
       - powershell: |
