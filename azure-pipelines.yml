@@ -22,7 +22,7 @@ stages:
           versionSpec: '10.x'
         displayName: 'Install Node.js'
       - powershell: |
-          cd $(Build,SourcesDirectory)
+          cd $(Build.SourcesDirectory)
           ls
         displayName: 'Listing Files'
       - task: CacheBeta@0
