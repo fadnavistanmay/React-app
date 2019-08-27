@@ -38,20 +38,10 @@ stages:
         workingDirectory: '$(Build.SourcesDirectory)'
         displayName: 'npm install'
         condition: ne(variables.CACHE_RESTORED, 'true')
-      #workaround for office ui fabric and unit tests
-      - task: PowerShell@2
-        inputs:
-          filePath: './scripts/pretest.ps1'
-          workingDirectory: '$(Build.SourcesDirectory)'
       #start unit tests
       - script: 'npm test'
         displayName: 'npm test'
         workingDirectory: '$(Build.SourcesDirectory)'
-      #workaround for office ui fabric and unit tests
-      - task: PowerShell@2
-        inputs:
-          filePath: './scripts/posttest.ps1'
-          workingDirectory: '$(Build.SourcesDirectory)'
       #build the solution
       - script: 'npm run build'
         displayName: 'npm run build'
